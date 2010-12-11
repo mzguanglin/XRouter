@@ -371,6 +371,16 @@ setup_interface() {
 		none)
 			setup_interface_none "$iface" "$config"
 		;;
+		8021xdhcp)
+			sleep 3	
+			local pidfile="/var/run/8021x-dhcp-${iface}.pid"
+			local username
+			config_get username "$config" username
+			local password
+			config_get password "$config" password
+			local dhcpclient="eval \"udhcpc -t 0 -i $iface -b -p $pidfile -s /usr/share/EapolPapClient/8021xdhcp.script -R\""
+			EapolPapClient -n "$iface" -u "$username" -p "$password" -d -D "$dhcpclient" -P /var/run/EapolPapClient-"${iface}".pid &
+		;;
 		*)
 			if ( eval "type setup_interface_$proto" ) >/dev/null 2>/dev/null; then
 				eval "setup_interface_$proto '$iface' '$config' '$proto'"
@@ -380,6 +390,25 @@ setup_interface() {
 			fi
 		;;
 	esac
+}
+
+stop_interface_8021xdhcp() {
+	local config="$1"
+
+	local ifname
+	config_get ifname "$config" ifname
+
+	local lock="/var/lock/8021x-dhcp-${ifname}"
+	[ -f "$lock" ] && lock -u "$lock"
+
+	remove_dns "$config"
+
+	local pidfile="/var/run/8021x-dhcp-${ifname}.pid"
+	service_kill udhcpc "$pidfile"
+	pidfile="/var/run/EapolPapClient-${ifname}.pid"
+	service_kill EapolPapClient "$pidfile"
+
+	uci -P /var/state revert "network.$config"
 }
 
 stop_interface_dhcp() {
