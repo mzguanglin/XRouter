@@ -1,6 +1,6 @@
 config system
-	option hostname	OpenWrt
-	option timezone	UTC
+	option hostname	XRouter
+	option timezone	Asia/Chongqing
 
 config rdate
 	list server ac-ntp0.net.cmu.edu
