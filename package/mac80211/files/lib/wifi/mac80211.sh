@@ -432,7 +432,7 @@ config wifi-iface
 	option device   radio$devidx
 	option network  lan
 	option mode     ap
-	option ssid     OpenWrt
+	option ssid     XRouter
 	option encryption none
 
 EOF
