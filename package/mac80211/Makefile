@@ -10,12 +10,10 @@ include $(INCLUDE_DIR)/kernel.mk
 
 PKG_NAME:=mac80211
 
-PKG_VERSION:=2010-09-14
+PKG_VERSION:=2010-12-16
 PKG_RELEASE:=1
 PKG_SOURCE_URL:=http://mirror2.openwrt.org/sources
-#	http://www.orbit-lab.org/kernel/compat-wireless-2.6/2010/11 \
-#	http://wireless.kernel.org/download/compat-wireless-2.6
-PKG_MD5SUM:=88511287e013ff0f2843b3679f52f335
+PKG_MD5SUM:=39196307aa67c1f19f498b570b994112
 
 PKG_SOURCE:=compat-wireless-$(PKG_VERSION).tar.bz2
 PKG_BUILD_DIR:=$(KERNEL_BUILD_DIR)/compat-wireless-$(PKG_VERSION)
@@ -24,7 +22,6 @@ PKG_BUILD_PARALLEL:=1
 PKG_CONFIG_DEPENDS:= \
 	CONFIG_PACKAGE_kmod-mac80211 \
 	CONFIG_PACKAGE_MAC80211_DEBUGFS \
-	CONFIG_PACKAGE_ATH9K_USE_MINSTREL \
 	CONFIG_PACKAGE_ATH_DEBUG \
 	CONFIG_ATH_USER_REGD \
 
@@ -44,7 +41,7 @@ endef
 define KernelPackage/cfg80211
   $(call KernelPackage/mac80211/Default)
   TITLE:=cfg80211 - wireless configuration API
-  DEPENDS+= +wireless-tools +iw @!LINUX_2_6_25 +crda
+  DEPENDS+= +wireless-tools +iw +crda
 ifeq ($(strip $(call CompareKernelPatchVer,$(KERNEL_PATCHVER),ge,2.6.33)),1)
   FILES:= \
 	$(PKG_BUILD_DIR)/compat/compat.ko \
@@ -137,7 +134,7 @@ endef
 
 define KernelPackage/p54-common
   $(call KernelPackage/p54/Default)
-  DEPENDS+= @PCI_SUPPORT||@USB_SUPPORT||@TARGET_omap24xx +kmod-mac80211
+  DEPENDS+= @PCI_SUPPORT||@USB_SUPPORT||@TARGET_omap24xx +kmod-mac80211 +kmod-crc-ccitt
   TITLE+= (COMMON)
   FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/p54/p54common.ko
   AUTOLOAD:=$(call AutoLoad,30,p54common)
@@ -446,17 +443,6 @@ This module adds support for wireless adapters based on
 Atheros IEEE 802.11n AR5008 and AR9001 family of chipsets.
 endef
 
-define KernelPackage/ath9k/config
-	menu "Configuration"
-		depends PACKAGE_kmod-ath9k
-
-	config PACKAGE_ATH9K_USE_MINSTREL
-		bool "use the new minstrel_ht rate control for ath9k"
-		default y
-
-	endmenu
-endef
-
 define KernelPackage/carl9170
   $(call KernelPackage/mac80211/Default)
   TITLE:=Driver for Atheros AR9170 USB sticks
@@ -586,6 +572,55 @@ define KernelPackage/net-ipw2200/description
  Kernel support for Intel IPW2200
  Includes:
  - ipw2200
+endef
+
+
+define KernelPackage/net-hermes
+  $(call KernelPackage/mac80211/Default)
+  TITLE:=Hermes 802.11b chipset support
+  DEPENDS:=@PCI_SUPPORT||PCMCIA_SUPPORT +kmod-cfg80211
+  FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/orinoco/orinoco.ko
+  AUTOLOAD:=$(call AutoLoad,50,orinoco)
+endef
+
+define KernelPackage/net-hermes/description
+ Kernel support for Hermes 802.11b chipsets
+endef
+
+define KernelPackage/net-hermes-pci
+  $(call KernelPackage/mac80211/Default)
+  TITLE:=Intersil Prism 2.5 PCI support
+  DEPENDS:=@PCI_SUPPORT +kmod-net-hermes +kmod-cfg80211
+  FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/orinoco/orinoco_pci.ko
+  AUTOLOAD:=$(call AutoLoad,55,orinoco_pci)
+endef
+
+define KernelPackage/net-hermes-pci/description
+ Kernel modules for Intersil Prism 2.5 PCI support
+endef
+
+define KernelPackage/net-hermes-plx
+  $(call KernelPackage/mac80211/Default)
+  TITLE:=PLX9052 based PCI adaptor
+  DEPENDS:=@PCI_SUPPORT +kmod-net-hermes +kmod-cfg80211
+  FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/orinoco/orinoco_plx.ko
+  AUTOLOAD:=$(call AutoLoad,55,orinoco_plx)
+endef
+
+define KernelPackage/net-hermes-plx/description
+ Kernel modules for Hermes in PLX9052 based PCI adaptors
+endef
+
+define KernelPackage/net-hermes-pcmcia
+  $(call KernelPackage/mac80211/Default)
+  TITLE:=Hermes based PCMCIA adaptors
+  DEPENDS:=@PCMCIA_SUPPORT +kmod-net-hermes +kmod-cfg80211 @BROKEN
+  FILES:=$(PKG_BUILD_DIR)/drivers/net/wireless/orinoco/orinoco_cs.ko
+  AUTOLOAD:=$(call AutoLoad,55,orinoco_cs)
+endef
+
+define KernelPackage/net-hermes-pcmcia/description
+ Kernel modules for Hermes based PCMCIA adaptors
 endef
 
 
@@ -837,7 +872,6 @@ BUILDFLAGS:= \
 	-D__CONFIG_MAC80211_RC_DEFAULT=minstrel \
 	-DCONFIG_MAC80211_RC_MINSTREL_HT \
 	$(if $(CONFIG_ATH_USER_REGD),-DATH_USER_REGD=1) \
-	$(if $(CONFIG_PACKAGE_ATH9K_USE_MINSTREL),-DATH9K_USE_MINSTREL) \
 	$(if $(CONFIG_PACKAGE_RT2X00_LIB_DEBUGFS),-DCONFIG_RT2X00_LIB_DEBUGFS) \
 	$(if $(CONFIG_PACKAGE_RT2X00_DEBUG),-DCONFIG_RT2X00_DEBUG) \
 	$(if $(NEED_RT2X00_LIB_HT),-DCONFIG_RT2X00_LIB_HT) \
@@ -937,7 +971,17 @@ MAKE_OPTS:= \
 	CONFIG_AT76C50X_USB= \
 	CONFIG_WL12XX= \
 	CONFIG_EEPROM_93CX6= \
-	CONFIG_HERMES= \
+	CONFIG_HERMES=$(if $(CONFIG_PACKAGE_kmod-net-hermes),m) \
+	CONFIG_HERMES_CACHE_FW_ON_INIT= \
+	CONFIG_PCI_HERMES=$(if $(CONFIG_PACKAGE_kmod-net-hermes-pci),m) \
+	CONFIG_PLX_HERMES=$(if $(CONFIG_PACKAGE_kmod-net-hermes-plx),m) \
+	CONFIG_PCMCIA_HERMES=$(if $(CONFIG_PACKAGE_kmod-net-hermes-pcmcia),m) \
+	CONFIG_HERMES_PRISM= \
+	CONFIG_APPLE_AIRPORT= \
+	CONFIG_TMD_HERMES= \
+	CONFIG_NORTEL_HERMES= \
+	CONFIG_PCMCIA_SPECTRUM= \
+	CONFIG_ORINOCO_USB= \
 	CONFIG_AR9170_USB=$(if $(CONFIG_PACKAGE_kmod-ar9170),m) \
 	CONFIG_AR9170_LEDS=$(CONFIG_LEDS_TRIGGERS) \
 	CONFIG_IWM= \
@@ -1142,3 +1186,7 @@ $(eval $(call KernelPackage,net-libipw))
 $(eval $(call KernelPackage,net-ipw2100))
 $(eval $(call KernelPackage,net-ipw2200))
 $(eval $(call KernelPackage,mwl8k))
+$(eval $(call KernelPackage,net-hermes))
+$(eval $(call KernelPackage,net-hermes-pci))
+$(eval $(call KernelPackage,net-hermes-plx))
+$(eval $(call KernelPackage,net-hermes-pcmcia))

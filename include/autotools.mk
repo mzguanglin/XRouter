@@ -49,15 +49,34 @@ define remove_version_check
 	fi
 endef
 
+define autoreconf
+	(cd $(PKG_BUILD_DIR); \
+		$(patsubst %,rm -f %;,$(PKG_REMOVE_FILES)) \
+		if [ -x ./autogen.sh ]; then \
+			./autogen.sh || true; \
+		elif [ -f ./configure.ac ] || [ -f ./configure.in ]; then \
+			[ -f ./aclocal.m4 ] && [ ! -f ./acinclude.m4 ] && mv aclocal.m4 acinclude.m4; \
+			[ -d ./autom4te.cache ] && rm -rf autom4te.cache; \
+			$(STAGING_DIR_HOST)/bin/autoreconf -v -f -i -s \
+				-B $(STAGING_DIR)/host/share/aclocal \
+				$(patsubst %,-I %,$(PKG_LIBTOOL_PATHS)) $(PKG_LIBTOOL_PATHS) || true; \
+		fi \
+	);
+endef
+
+ifneq ($(filter autoreconf,$(PKG_FIXUP)),)
+  Hooks/Configure/Pre += autoreconf
+endif
+
 ifneq ($(filter libtool,$(PKG_FIXUP)),)
-  PKG_BUILD_DEPENDS += libtool
+  PKG_BUILD_DEPENDS += libtool libintl libiconv
   Hooks/Configure/Pre += update_libtool remove_version_check
   Hooks/Configure/Post += update_libtool
   Hooks/InstallDev/Post += libtool_fixup_libdir
 endif
 
 ifneq ($(filter libtool-ucxx,$(PKG_FIXUP)),)
-  PKG_BUILD_DEPENDS += libtool
+  PKG_BUILD_DEPENDS += libtool libintl libiconv
   Hooks/Configure/Pre += update_libtool_ucxx remove_version_check
   Hooks/Configure/Post += update_libtool_ucxx
   Hooks/InstallDev/Post += libtool_fixup_libdir
