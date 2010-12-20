@@ -1,6 +1,7 @@
 config system
 	option hostname	XRouter
-	option timezone	Asia/Chongqing
+	option zonename	Asia/Chongqing
+	option timezone CST-8
 
 config rdate
 	list server ac-ntp0.net.cmu.edu
