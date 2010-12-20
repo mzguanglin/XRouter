@@ -4,7 +4,7 @@
 #add our repos
 src-git packages gitosis@222.200.191.34:openwrt-packages.git
 src-git xwrt gitosis@222.200.191.34:xwrt.git
-src-git luci gitosis@222.200.191.34:luci-package.git
+src-git luci gitosis@222.200.191.34:luci-package.git master
 #src-svn phone svn://svn.openwrt.org/openwrt/feeds/phone
 #src-svn efl svn://svn.openwrt.org/openwrt/feeds/efl
 #src-svn desktop svn://svn.openwrt.org/openwrt/feeds/desktop
