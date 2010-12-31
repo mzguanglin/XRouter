@@ -1,0 +1,615 @@
+
+config 'lightmultiwan' 'config'
+	option 'default_route' 'wan'
+	option 'enabled' '1'
+
+config 'interface' 'wan'
+	option 'weight' '8'
+
+config 'interface' 'wan2'
+	option 'weight' '2'
+
+config 'mwanfw'
+	option 'dst' '10/8'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '172.16/12'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '192.168/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '162.105/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '166.111/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.4.128/19'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.112.64/18'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.112.128/17'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.112.113/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.204/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.31/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.68/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.71/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.81/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.82/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.242/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.243.0/17'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.243.128/18'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.224.0/17'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.224.128/18'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.225/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.226/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.28/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.199/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '59.64/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '203.91.120/21'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '121.193/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '121.194/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '118.228/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '118.230/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '121.52.160/19'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '115.24/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '183.172/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.117/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.200/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.26/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '218.195/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.244/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.23/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.24/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '59.74/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '59.76/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '120.95/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '115.154/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '111.114/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.115/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.202/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.40/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.83/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '218.194/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.221/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.18/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.196/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.198/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '121.48/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '120.94/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '113.54/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '180.84/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '223.128/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.38.192/18'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.116/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.192/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.36/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.66/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '218.192/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.222/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.227/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.16/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.200/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '125.216/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '125.218/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '116.56/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '116.13/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '110.64/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '1.184/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.114/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.196/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.42/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.69/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.67/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.84/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '218.196/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.20/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.22/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '59.68/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '125.219/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '125.220/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '122.204/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '115.156/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '115.158/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '183.168/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '183.170/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.38.64/19'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.119/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.194/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.44/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.28/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.64/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.70/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.86/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.218/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.230/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.192/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.206/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '58.192/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '121.248/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '114.212/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '114.214/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '180.201/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '180.208/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '1.51/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '223.2/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.120/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.32/14'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '211.80/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '218.193/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.220/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.228/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.204/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '59.77/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '59.78/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '58.198/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '121.192/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '111.186/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '175.185/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '175.186/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.118/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.198/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.46/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.30/16'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.216/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '222.26/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '59.72/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '125.222/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '58.154/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '118.202/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '111.116/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.38.96/19'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.38.140/23'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.38.184/21'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.127.216/21'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.127.224/19'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.112.0/18'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.25.128/18'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.243.192/18'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '219.224.192/18'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '210.25.0/17'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '58.194/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '58.200/13'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '58.196/15'
+	option 'wanrule' 'wan2'
+
+config 'mwanfw'
+	option 'dst' '202.179.240/20'
+	option 'wanrule' 'wan2'
+

@@ -1,0 +1,88 @@
+:<<COMMENT
+Copyright (c) 2010，XRouter, GROUP
+All rights reserved.
+
+Name        : 50-lightmultiwan
+Description : hotplug.d script for lightmultiwan
+
+Version     : 1.0
+Author      : Xu Guanglin
+Created on  : Dec 31, 2010
+COMMENT
+
+. /etc/functions.sh
+
+checkAllInterfaceStatus() {
+	local status=`uci_get_state lightmultiwan $1 status`
+
+	if [ ${status}x != "on"x ]; then
+		allWanEnable=no
+	fi
+}
+
+logTo() {
+	logger ${debug:+-s} -p 5 -t Light-Multi-Wan "$1"
+}
+
+isLightMultiWanEnabled() {
+	local enabled=`uci_get_state lightmultiwan config enabled`
+	if [ ${enabled}x = "1"x  ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+#check if the uping or downing interface is our lightmultiwan interface
+isInterfaceMultiWan() {
+	local checkWans=$(uci -p /var/state show lightmultiwan.$INTERFACE 2>/dev/null | grep =)
+	if [ -n "$checkWans" ]; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+
+if ! isLightMultiWanEnabled; then
+	return
+fi
+
+if ! isInterfaceMultiWan; then
+	return
+fi
+
+
+case "$ACTION" in
+ifup) 
+	local ipaddr=`uci_get_state network $INTERFACE ipaddr`
+	local gateway=`uci_get_state network $INTERFACE gateway`
+	local dns=`uci_get_state network $INTERFACE dns`
+	local resolv_dns=`uci_get_state network $INTERFACE resolv_dns`	
+	logTo "${INTERFACE}(${DEVICE},${PROTO}) up! ip:${ipaddr} gateway:${gateway} dns: ${dns}"	
+
+	uci_set_state lightmultiwan $INTERFACE status on
+
+	local globalRunning=`uci_get_state lightmultiwan config status`
+	allWanEnable=yes
+	config_load lightmultiwan
+	config_foreach checkAllInterfaceStatus interface
+	
+	if [ ${globalRunning}x = "on"x -a $allWanEnable = yes ]; then
+		/usr/bin/lightmultiwan.sh recover &
+		logTo "!!!Recovering lightmultiwan!!!"
+	fi
+
+	if [ ${globalRunning}x != "on"x -a $allWanEnable = yes ]; then
+		/usr/bin/lightmultiwan.sh start &
+		logTo "!!!Starting lightmultiwan!!!"
+		uci_set_state lightmultiwan config status on
+	fi
+
+;;
+ifdown) 
+	logTo "${INTERFACE}(${DEVICE},${PROTO}) down!"	
+	
+	uci_set_state lightmultiwan $INTERFACE status off
+;;
+esac
